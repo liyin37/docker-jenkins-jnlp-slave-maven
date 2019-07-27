@@ -5,6 +5,7 @@ FROM registry.cn-hangzhou.aliyuncs.com/rancococ/jenkins-jnlp-slave:3.29.3-alpine
 MAINTAINER "rancococ" <rancococ@qq.com>
 
 # set arg info
+ARG USER=jenkins
 ARG MAVEN_VERSION=3.6.1
 ARG MAVEN_HOME=/usr/local/maven
 ARG MAVEN_URL=https://mirrors.huaweicloud.com/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
@@ -28,7 +29,7 @@ RUN curl --create-dirs -fsSLo /tmp/maven/apache-maven.tar.gz ${MAVEN_URL} && \
     \rm -rf /tmp/maven
 
 # set current user
-USER jenkins
+USER ${USER}
 
 RUN mkdir /home/${USER}/.m2 && \
     mkdir -p /home/${USER}/.m2/repository && \
