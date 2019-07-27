@@ -46,3 +46,6 @@ RUN mkdir /home/${USER}/.m2 && \
     echo '        </mirror>' >> /home/${USER}/.m2/settings.xml && \
     echo '    </mirrors>' >> /home/${USER}/.m2/settings.xml && \
     echo '</settings>' >> /home/${USER}/.m2/settings.xml
+
+# set volume info
+VOLUME /home/${USER}/.m2
