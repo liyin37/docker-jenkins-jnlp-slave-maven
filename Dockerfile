@@ -10,7 +10,11 @@ ARG MAVEN_HOME=/usr/local/maven
 ARG MAVEN_URL=https://mirrors.huaweicloud.com/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
 
 # set environment
+ENV M2_HOME=${MAVEN_HOME}
 ENV MAVEN_HOME=${MAVEN_HOME}
+
+# copy settings.xml
+COPY settings.xml /tmp/settings.xml
 
 # set current user
 USER root
@@ -25,3 +29,8 @@ RUN curl --create-dirs -fsSLo /tmp/maven/apache-maven.tar.gz ${MAVEN_URL} && \
 
 # set current user
 USER jenkins
+
+RUN mkdir /home/${USER}/.m2 && \
+    mkdir -p /home/${USER}/.m2/repository && \
+    cp /tmp/settings.xml /home/${USER}/.m2 && \
+    \rm -rf /tmp/settings.xml
